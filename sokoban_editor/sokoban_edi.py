@@ -5,39 +5,23 @@ import pygame
 import sys
 from pygame.locals import *
 
-from grille import Grille
-from player import Player
-
 #------------
 pygame.init()
 screen = pygame.display.set_mode((408,408))
-pygame.display.set_caption("Sokoban")
+pygame.display.set_caption("Sokoban Editor")
 #------------
 
 background = pygame.image.load("img/back.png")
 
 screen.blit(background, (0,0))
 
-_grille = Grille()
-_grille.drawMap(screen)
-_grille.genMap()
-
-_player = Player(_grille)
-_player.drawPlayer(screen)
-
 pygame.display.flip()
 
 continuer = True
-while not _grille.is_fini():
+while continuer:
     for event in pygame.event.get():
         if event.type == QUIT:
-            sys.exit()
-        if event.type == KEYDOWN:
-            _player.move(event.key)
-            if event.key == K_r:
-                print "kk"
+            continuer = False
     screen.blit(background, (0,0))
-    _grille.drawMap(screen)
-    _player.drawPlayer(screen)
     pygame.display.flip()
             

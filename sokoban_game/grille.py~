@@ -16,29 +16,32 @@ class Grille:
         self.lvtest = []
         self.valide_caisse = False
 
-    def genMap(self):
-        self.lvtest = [ 
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1],
-                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-                ]
+    def genMap(self, fichier):
+        with open (fichier, 'rb') as fichi:
+            self.lvtest = [[int(l) for l in line.strip("\n").replace(" ", ",").split(",")] for line in fichi]
+
+        print self.lvtest
+
+        #self.lvtest = [ 
+        #        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #        [1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1],
+        #        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        #        ]
         self.coord_objec = []
         for y in range(len(self.lvtest)):
             for x in range(len(self.lvtest[y])):
                 a = self.lvtest[y][x]
                 if a == 3:
                     self.coord_objec.append((x*34,y*34))
-
-
 
 
     def drawMap(self, screen):
@@ -57,11 +60,12 @@ class Grille:
                 if self.lvtest[y][x] == 4:
                     return (x*34, y*34)
 
+
     #---Déplacement des caisses ---#
     def moveCaisse(self, x, y, pos):
         self.is_fini()
         if pos == "gauche":
-            if self.lvtest[y/34][(x-68)/34] != 1 and self.lvtest[y/34][(x-68)/34] != 2:
+            if self.lvtest[y/34][(x-68)/34] != 1 and self.lvtest[y/34][(x-68)/34] != 2 and self.lvtest[y/34][(x-68)/34] != 5:
                 if self.lvtest[y/34][(x-34)/34] == 5:
                     self.lvtest[y/34][(x-34)/34] = 3
                 else:
@@ -72,7 +76,7 @@ class Grille:
                     self.lvtest[y/34][(x-68)/34] = 2
 
         if pos == "droite":
-            if self.lvtest[y/34][(x+68)/34] != 1 and self.lvtest[y/34][(x+68)/34] != 2:
+            if self.lvtest[y/34][(x+68)/34] != 1 and self.lvtest[y/34][(x+68)/34] != 2 and self.lvtest[y/34][(x+68)/34] != 5:
                 if self.lvtest[y/34][(x+34)/34] == 5:
                     self.lvtest[y/34][(x+34)/34] = 3
                 else:
@@ -83,7 +87,7 @@ class Grille:
                     self.lvtest[y/34][(x+68)/34] = 2
 
         if pos == "haut":
-            if self.lvtest[(y-68)/34][x/34] != 1 and self.lvtest[(y-68)/34][x/34] != 2:
+            if self.lvtest[(y-68)/34][x/34] != 1 and self.lvtest[(y-68)/34][x/34] != 2 and self.lvtest[(y-68)/34][x/34] != 5:
                 if self.lvtest[(y-34)/34][x/34] == 5:
                     self.lvtest[(y-34)/34][x/34] = 3
                 else:
@@ -103,6 +107,7 @@ class Grille:
                     self.lvtest[(y+68)/34][x/34] = 5
                 else:
                     self.lvtest[(y+68)/34][x/34] = 2
+
 
     def is_fini(self):
         lis = [self.lvtest[y/34][x/34] for (x, y) in self.coord_objec]
