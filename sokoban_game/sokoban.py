@@ -20,7 +20,7 @@ screen.blit(background, (0,0))
 
 _grille = Grille()
 _grille.drawMap(screen)
-_grille.genMap("lv1")
+_grille.genMap("lv1.yaml")
 
 _player = Player(_grille)
 _player.drawPlayer(screen)

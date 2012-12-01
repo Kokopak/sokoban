@@ -54,20 +54,28 @@ class Player:
                 if self.position == self.gauche:
                     pos_grille = self.grille.lvtest[self.y/34][self.gauchex/34]
                     if pos_grille == 2 or pos_grille == 5:
-                        self.grille.moveCaisse(self.x, self.y, "gauche")
-                    return pos_grille == 1 or pos_grille == 2
+                        a = self.grille.moveCaisse(self.x, self.y, "gauche")
+                        if a:
+                            self.x = self.gauchex
+                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
                 elif self.position == self.droite:
                     pos_grille = self.grille.lvtest[self.y/34][self.droitex/34]
                     if pos_grille == 2 or pos_grille == 5:
-                        self.grille.moveCaisse(self.x, self.y, "droite")
-                    return pos_grille == 1 or pos_grille == 2
+                        a = self.grille.moveCaisse(self.x, self.y, "droite")
+                        if a:
+                            self.x = self.droitex
+                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
                 elif self.position == self.haut:
                     pos_grille = self.grille.lvtest[self.hauty/34][self.x/34]
                     if pos_grille == 2 or pos_grille == 5:
-                        self.grille.moveCaisse(self.x, self.y, "haut")
-                    return pos_grille == 1 or pos_grille == 2
+                        a = self.grille.moveCaisse(self.x, self.y, "haut")
+                        if a:
+                            self.y = self.hauty
+                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
                 elif self.position == self.bas:
                     pos_grille = self.grille.lvtest[self.basy/34][self.x/34]
                     if pos_grille == 2 or pos_grille == 5:
-                        self.grille.moveCaisse(self.x, self.y, "bas")
-                    return pos_grille == 1 or pos_grille == 2
+                        a = self.grille.moveCaisse(self.x, self.y, "bas")
+                        if a:
+                            self.y = self.basy
+                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5

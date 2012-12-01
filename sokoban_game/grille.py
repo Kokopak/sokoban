@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
+import yaml
 
 class Grille:
     def __init__(self):
@@ -17,8 +18,11 @@ class Grille:
         self.valide_caisse = False
 
     def genMap(self, fichier):
+        #f = open("lv1.yaml", "w");
         with open (fichier, 'rb') as fich:
-            self.lvtest = [[int(l) for l in line.strip().split(" ")] for line in fich]
+            self.lvtest = yaml.load(fich)
+        #    self.lvtest = [[int(l) for l in line.strip().split(" ")] for line in fich]
+        #    yaml.dump(self.lvtest, f)
 
         #self.lvtest = [ 
         #        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -70,8 +74,10 @@ class Grille:
                     self.lvtest[y/34][(x-34)/34] = 0
                 if self.lvtest[y/34][(x-68)/34] == 3:
                     self.lvtest[y/34][(x-68)/34] = 5
+                    return True
                 else:
                     self.lvtest[y/34][(x-68)/34] = 2
+                    return True
 
         if pos == "droite":
             if self.lvtest[y/34][(x+68)/34] != 1 and self.lvtest[y/34][(x+68)/34] != 2 and self.lvtest[y/34][(x+68)/34] != 5:
@@ -81,8 +87,10 @@ class Grille:
                     self.lvtest[y/34][(x+34)/34] = 0
                 if self.lvtest[y/34][(x+68)/34] == 3:
                     self.lvtest[y/34][(x+68)/34] = 5
+                    return True
                 else:
                     self.lvtest[y/34][(x+68)/34] = 2
+                    return True
 
         if pos == "haut":
             if self.lvtest[(y-68)/34][x/34] != 1 and self.lvtest[(y-68)/34][x/34] != 2 and self.lvtest[(y-68)/34][x/34] != 5:
@@ -92,8 +100,10 @@ class Grille:
                     self.lvtest[(y-34)/34][x/34] = 0
                 if self.lvtest[(y-68)/34][x/34] == 3:
                     self.lvtest[(y-68)/34][x/34] = 5
+                    return True
                 else:
                     self.lvtest[(y-68)/34][x/34] = 2
+                    return True
 
         if pos == "bas":
             if self.lvtest[(y+68)/34][x/34] != 1 and self.lvtest[(y+68)/34][x/34] != 2 and self.lvtest[(y+68)/34][x/34] != 5:
@@ -103,16 +113,17 @@ class Grille:
                     self.lvtest[(y+34)/34][x/34] = 0
                 if self.lvtest[(y+68)/34][x/34] == 3:
                     self.lvtest[(y+68)/34][x/34] = 5
+                    return True
                 else:
                     self.lvtest[(y+68)/34][x/34] = 2
+                    return True
 
+        return False
 
     def is_fini(self):
         lis = [self.lvtest[y/34][x/34] for (x, y) in self.coord_objec]
         return lis.count(5) == len(self.coord_objec)
 
-
-
-
-
-
+if __name__ == '__main__' :
+    g = Grille()
+    g.genMap("lv1")
