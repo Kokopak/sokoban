@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
+import sys
 from pygame.locals import *
 
 from grille import Grille
@@ -27,10 +28,10 @@ _player.drawPlayer(screen)
 pygame.display.flip()
 
 continuer = True
-while continuer:
+while not _grille.is_fini():
     for event in pygame.event.get():
         if event.type == QUIT:
-            continuer = False
+            sys.exit()
         if event.type == KEYDOWN:
             _player.move(event.key)
             if event.key == K_r:

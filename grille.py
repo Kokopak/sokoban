@@ -31,6 +31,15 @@ class Grille:
                 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
                 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
                 ]
+        self.coord_objec = []
+        for y in range(len(self.lvtest)):
+            for x in range(len(self.lvtest[y])):
+                a = self.lvtest[y][x]
+                if a == 3:
+                    self.coord_objec.append((x*34,y*34))
+
+
+
 
     def drawMap(self, screen):
         for y in range(len(self.lvtest)):
@@ -50,6 +59,7 @@ class Grille:
 
     #---Déplacement des caisses ---#
     def moveCaisse(self, x, y, pos):
+        self.is_fini()
         if pos == "gauche":
             if self.lvtest[y/34][(x-68)/34] != 1 and self.lvtest[y/34][(x-68)/34] != 2:
                 if self.lvtest[y/34][(x-34)/34] == 5:
@@ -94,15 +104,12 @@ class Grille:
                 else:
                     self.lvtest[(y+68)/34][x/34] = 2
 
-    def isFini(self):
-        lis = []
-        for y in range(len(self.lvtest)):
-            for x in range(len(self.lvtest[y])):
-                a = self.lvtest[y][x]
-                if a == 3 :
-                    lis.append((x, y))
-        for (x, y) in lis:
-            if self.lvtest[y][x] == 5:
-                print "kk"
-            else:
-                print "oo"
+    def is_fini(self):
+        lis = [self.lvtest[y/34][x/34] for (x, y) in self.coord_objec]
+        return lis.count(5) == len(self.coord_objec)
+
+
+
+
+
+
