@@ -52,54 +52,57 @@ class Grille:
     def moveCaisse(self, x, y, pos):
         if pos == "gauche":
             if self.lvtest[y/34][(x-68)/34] != 1 and self.lvtest[y/34][(x-68)/34] != 2:
-                self.lvtest[y/34][(x-34)/34] = 0
-                if not self.valide_caisse:
-                    if self.lvtest[y/34][(x-68)/34] == 3:
-                        self.lvtest[y/34][(x-68)/34] = 5
-                        self.valide_caisse = True
-                    else:
-                        self.lvtest[y/34][(x-68)/34] = 2
-                else:
+                if self.lvtest[y/34][(x-34)/34] == 5:
                     self.lvtest[y/34][(x-34)/34] = 3
+                else:
+                    self.lvtest[y/34][(x-34)/34] = 0
+                if self.lvtest[y/34][(x-68)/34] == 3:
+                    self.lvtest[y/34][(x-68)/34] = 5
+                else:
                     self.lvtest[y/34][(x-68)/34] = 2
-                    self.valide_caisse = False
-        elif pos == "droite":
+
+        if pos == "droite":
             if self.lvtest[y/34][(x+68)/34] != 1 and self.lvtest[y/34][(x+68)/34] != 2:
-                self.lvtest[y/34][(x+34)/34] = 0
-                if not self.valide_caisse:
-                    if self.lvtest[y/34][(x+68)/34] == 3:
-                        self.lvtest[y/34][(x+68)/34] = 5
-                        self.valide_caisse = True
-                    else:
-                        self.lvtest[y/34][(x+68)/34] = 2
-                else:
+                if self.lvtest[y/34][(x+34)/34] == 5:
                     self.lvtest[y/34][(x+34)/34] = 3
+                else:
+                    self.lvtest[y/34][(x+34)/34] = 0
+                if self.lvtest[y/34][(x+68)/34] == 3:
+                    self.lvtest[y/34][(x+68)/34] = 5
+                else:
                     self.lvtest[y/34][(x+68)/34] = 2
-                    self.valide_caisse = False
-        elif pos == "haut":
+
+        if pos == "haut":
             if self.lvtest[(y-68)/34][x/34] != 1 and self.lvtest[(y-68)/34][x/34] != 2:
-                self.lvtest[(y-34)/34][x/34] = 0
-                if not self.valide_caisse:
-                    if self.lvtest[(y-68)/34][x/34] == 3:
-                        self.lvtest[(y-68)/34][x/34] = 5
-                        self.valide_caisse = True
-                    else:
-                        self.lvtest[(y-68)/34][x/34] = 2
-                else:
+                if self.lvtest[(y-34)/34][x/34] == 5:
                     self.lvtest[(y-34)/34][x/34] = 3
-                    self.lvtest[(y-68)/34][x/34] = 2
-                    self.valide_caisse = False
-        elif pos == "bas":
-            if self.lvtest[(y+68)/34][x/34] != 1 and self.lvtest[(y+68)/34][x/34] != 2:
-                self.lvtest[(y+34)/34][x/34] = 0
-                if not self.valide_caisse:
-                    if self.lvtest[(y+68)/34][x/34] == 3:
-                        self.lvtest[(y+68)/34][x/34] = 5
-                        self.valide_caisse = True
-                    else:
-                        self.lvtest[(y+68)/34][x/34] = 2
                 else:
+                    self.lvtest[(y-34)/34][x/34] = 0
+                if self.lvtest[(y-68)/34][x/34] == 3:
+                    self.lvtest[(y-68)/34][x/34] = 5
+                else:
+                    self.lvtest[(y-68)/34][x/34] = 2
+
+        if pos == "bas":
+            if self.lvtest[(y+68)/34][x/34] != 1 and self.lvtest[(y+68)/34][x/34] != 2:
+                if self.lvtest[(y+34)/34][x/34] == 5:
                     self.lvtest[(y+34)/34][x/34] = 3
+                else:
+                    self.lvtest[(y+34)/34][x/34] = 0
+                if self.lvtest[(y+68)/34][x/34] == 3:
+                    self.lvtest[(y+68)/34][x/34] = 5
+                else:
                     self.lvtest[(y+68)/34][x/34] = 2
-                    self.valide_caisse = False
-        
+
+    def isFini(self):
+        lis = []
+        for y in range(len(self.lvtest)):
+            for x in range(len(self.lvtest[y])):
+                a = self.lvtest[y][x]
+                if a == 3 :
+                    lis.append((x, y))
+        for (x, y) in lis:
+            if self.lvtest[y][x] == 5:
+                print "kk"
+            else:
+                print "oo"

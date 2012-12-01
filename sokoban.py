@@ -33,6 +33,8 @@ while continuer:
             continuer = False
         if event.type == KEYDOWN:
             _player.move(event.key)
+            if event.key == K_r:
+                print "kk"
     screen.blit(background, (0,0))
     _grille.drawMap(screen)
     _player.drawPlayer(screen)
