@@ -12,14 +12,14 @@ je n'ai pas regardé la solution).
 Dépendances (pour Debian/Ubuntu)
 --------------------------------
 
-Dans un terminal, entrer les commandes suivantes ::
+Dans un terminal, entrer la commandes suivantes : ::
     
     sudo apt-get install python-pygame
 
 Lancement du jeu
 -------------------
 
-Dans un terminal, entrer les commandes suivantes ::
+Dans un terminal, entrer les commandes suivantes : ::
     
     cd sokoban/
     python sokoban.py
