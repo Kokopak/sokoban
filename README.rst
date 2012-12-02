@@ -12,7 +12,7 @@ je n'ai pas regardé la solution).
 Dépendances (pour Debian/Ubuntu)
 --------------------------------
 
-Dans un terminal, entrer la commandes suivantes : ::
+Dans un terminal, entrer la commande suivante : ::
     
     sudo apt-get install python-pygame
 
