@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-import yaml
 
 class Grille:
     def __init__(self):
