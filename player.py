@@ -5,6 +5,7 @@ import pygame
 from pygame.locals import *
 
 from grille import Grille
+from config import * 
 
 
 class Player:
@@ -53,29 +54,29 @@ class Player:
             for x in range(len(self.grille.lvtest[y])):
                 if self.position == self.gauche:
                     pos_grille = self.grille.lvtest[self.y/34][self.gauchex/34]
-                    if pos_grille == 2 or pos_grille == 5:
+                    if pos_grille == CAISSE or pos_grille == CAISSE_OK:
                         a = self.grille.moveCaisse(self.x, self.y, "gauche")
                         if a:
                             self.x = self.gauchex
-                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
+                    return pos_grille == MUR or pos_grille == CAISSE or pos_grille == CAISSE_OK
                 elif self.position == self.droite:
                     pos_grille = self.grille.lvtest[self.y/34][self.droitex/34]
-                    if pos_grille == 2 or pos_grille == 5:
+                    if  pos_grille == CAISSE or pos_grille == CAISSE_OK:
                         a = self.grille.moveCaisse(self.x, self.y, "droite")
                         if a:
                             self.x = self.droitex
-                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
+                    return pos_grille == MUR or  pos_grille == CAISSE or pos_grille == CAISSE_OK
                 elif self.position == self.haut:
                     pos_grille = self.grille.lvtest[self.hauty/34][self.x/34]
-                    if pos_grille == 2 or pos_grille == 5:
+                    if  pos_grille == CAISSE or pos_grille == CAISSE_OK:
                         a = self.grille.moveCaisse(self.x, self.y, "haut")
                         if a:
                             self.y = self.hauty
-                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
+                    return pos_grille == MUR or  pos_grille == CAISSE or pos_grille == CAISSE_OK
                 elif self.position == self.bas:
                     pos_grille = self.grille.lvtest[self.basy/34][self.x/34]
-                    if pos_grille == 2 or pos_grille == 5:
+                    if  pos_grille == CAISSE or pos_grille == CAISSE_OK:
                         a = self.grille.moveCaisse(self.x, self.y, "bas")
                         if a:
                             self.y = self.basy
-                    return pos_grille == 1 or pos_grille == 2 or pos_grille == 5
+                    return pos_grille == MUR or  pos_grille == CAISSE or pos_grille == CAISSE_OK

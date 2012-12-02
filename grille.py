@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
+from config import * 
 
 class Grille:
     def __init__(self):
@@ -49,55 +50,55 @@ class Grille:
     def moveCaisse(self, x, y, pos):
         self.is_fini()
         if pos == "gauche":
-            if self.lvtest[y/34][(x-68)/34] != 1 and self.lvtest[y/34][(x-68)/34] != 2 and self.lvtest[y/34][(x-68)/34] != 5:
-                if self.lvtest[y/34][(x-34)/34] == 5:
-                    self.lvtest[y/34][(x-34)/34] = 3
+            if self.lvtest[y/34][(x-68)/34] != MUR and self.lvtest[y/34][(x-68)/34] != CAISSE and self.lvtest[y/34][(x-68)/34] != CAISSE_OK:
+                if self.lvtest[y/34][(x-34)/34] == CAISSE_OK:
+                    self.lvtest[y/34][(x-34)/34] = OBJECTIF
                 else:
-                    self.lvtest[y/34][(x-34)/34] = 0
-                if self.lvtest[y/34][(x-68)/34] == 3:
-                    self.lvtest[y/34][(x-68)/34] = 5
+                    self.lvtest[y/34][(x-34)/34] = VIDE
+                if self.lvtest[y/34][(x-68)/34] == OBJECTIF:
+                    self.lvtest[y/34][(x-68)/34] = CAISSE_OK
                     return True
                 else:
-                    self.lvtest[y/34][(x-68)/34] = 2
+                    self.lvtest[y/34][(x-68)/34] = CAISSE
                     return True
 
         if pos == "droite":
-            if self.lvtest[y/34][(x+68)/34] != 1 and self.lvtest[y/34][(x+68)/34] != 2 and self.lvtest[y/34][(x+68)/34] != 5:
-                if self.lvtest[y/34][(x+34)/34] == 5:
-                    self.lvtest[y/34][(x+34)/34] = 3
+            if self.lvtest[y/34][(x+68)/34] != MUR and self.lvtest[y/34][(x+68)/34] != CAISSE and self.lvtest[y/34][(x+68)/34] != CAISSE_OK:
+                if self.lvtest[y/34][(x+34)/34] == CAISSE_OK:
+                    self.lvtest[y/34][(x+34)/34] = OBJECTIF
                 else:
-                    self.lvtest[y/34][(x+34)/34] = 0
-                if self.lvtest[y/34][(x+68)/34] == 3:
-                    self.lvtest[y/34][(x+68)/34] = 5
+                    self.lvtest[y/34][(x+34)/34] = VIDE
+                if self.lvtest[y/34][(x+68)/34] == OBJECTIF:
+                    self.lvtest[y/34][(x+68)/34] = CAISSE_OK
                     return True
                 else:
-                    self.lvtest[y/34][(x+68)/34] = 2
+                    self.lvtest[y/34][(x+68)/34] = CAISSE
                     return True
 
         if pos == "haut":
-            if self.lvtest[(y-68)/34][x/34] != 1 and self.lvtest[(y-68)/34][x/34] != 2 and self.lvtest[(y-68)/34][x/34] != 5:
-                if self.lvtest[(y-34)/34][x/34] == 5:
-                    self.lvtest[(y-34)/34][x/34] = 3
+            if self.lvtest[(y-68)/34][x/34] != MUR and self.lvtest[(y-68)/34][x/34] != CAISSE and self.lvtest[(y-68)/34][x/34] != CAISSE_OK:
+                if self.lvtest[(y-34)/34][x/34] == CAISSE_OK:
+                    self.lvtest[(y-34)/34][x/34] = OBJECTIF
                 else:
-                    self.lvtest[(y-34)/34][x/34] = 0
-                if self.lvtest[(y-68)/34][x/34] == 3:
-                    self.lvtest[(y-68)/34][x/34] = 5
+                    self.lvtest[(y-34)/34][x/34] = VIDE
+                if self.lvtest[(y-68)/34][x/34] == OBJECTIF:
+                    self.lvtest[(y-68)/34][x/34] = CAISSE_OK
                     return True
                 else:
-                    self.lvtest[(y-68)/34][x/34] = 2
+                    self.lvtest[(y-68)/34][x/34] = CAISSE
                     return True
 
         if pos == "bas":
-            if self.lvtest[(y+68)/34][x/34] != 1 and self.lvtest[(y+68)/34][x/34] != 2 and self.lvtest[(y+68)/34][x/34] != 5:
-                if self.lvtest[(y+34)/34][x/34] == 5:
-                    self.lvtest[(y+34)/34][x/34] = 3
+            if self.lvtest[(y+68)/34][x/34] != MUR and self.lvtest[(y+68)/34][x/34] != CAISSE and self.lvtest[(y+68)/34][x/34] != CAISSE_OK:
+                if self.lvtest[(y+34)/34][x/34] == CAISSE_OK:
+                    self.lvtest[(y+34)/34][x/34] = OBJECTIF
                 else:
-                    self.lvtest[(y+34)/34][x/34] = 0
-                if self.lvtest[(y+68)/34][x/34] == 3:
-                    self.lvtest[(y+68)/34][x/34] = 5
+                    self.lvtest[(y+34)/34][x/34] = VIDE
+                if self.lvtest[(y+68)/34][x/34] == OBJECTIF:
+                    self.lvtest[(y+68)/34][x/34] = CAISSE_OK
                     return True
                 else:
-                    self.lvtest[(y+68)/34][x/34] = 2
+                    self.lvtest[(y+68)/34][x/34] = CAISSE
                     return True
 
         return False
