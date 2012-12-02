@@ -11,10 +11,10 @@ class Player:
         self.pos = {
             K_LEFT: pygame.image.load("img/mario_gauche.gif"),
             K_RIGHT: pygame.image.load("img/mario_droite.gif"),
-            K_UP:    pygame.image.load("img/mario_bas.gif"),
-            K_DOWN:   pygame.image.load("img/mario_haut.gif")
+            K_DOWN:    pygame.image.load("img/mario_bas.gif"),
+            K_UP:   pygame.image.load("img/mario_haut.gif")
         }
-        self.position = K_UP
+        self.position = K_DOWN
 
     def drawPlayer(self, screen, x, y):
         screen.blit(self.pos[self.position], (x * SIZE, y * SIZE))

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-import sys
+import time
 from pygame.locals import *
 
 from grille import Grille
@@ -22,10 +22,14 @@ grille.drawMap()
 pygame.display.flip()
 
 continuer = True
-while not grille.is_fini():
+while continuer and not grille.is_fini():
     for event in pygame.event.get():
+        if event.type == QUIT:
+            print "Bye !"
+            continuer = False
         if event.type == KEYDOWN:
             grille.player_move(event.key)
     screen.blit(background, (0,0))
     grille.drawMap()
     pygame.display.flip()
+    time.sleep(.01)

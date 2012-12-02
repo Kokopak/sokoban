@@ -18,7 +18,6 @@ class Grille:
         }
         self.cases = {}
         self.objectifs = []
-        self.player = player.Player()
         with open (fichier, 'r') as fich:
             for y, line in enumerate(fich) :
                 for x, l in enumerate(line.strip().split(" ")) :
@@ -27,39 +26,57 @@ class Grille:
                         self.objectifs.append((x,y))
         self.lx = x+1
         self.ly = y+1
+        self.player = player.Player()
 
     def player_move(self, key):
+        # si mauvaise touche, on dégage
         if key not in ( K_LEFT, K_RIGHT, K_UP,  K_DOWN) :
             return
-        px, py = self.getPlayerPosition()
+
+        # met le player dans la bonne direction
         self.player.set_position(key)
+        # coord actuelles
+        px, py = self.getPlayerPosition()
+        # coord après déplacement
         fx, fy = self.case_move(px, py, key)
 
-        if self.cases[fx, fy] in (CAISSE, CAISSE_OK) :
+        # caisse à l'arrivée ?
+        if self.depl_caisse_ok(fx, fy) and self.cases[fx, fy] in (CAISSE, CAISSE_OK) :
             cx, cy = self.case_move(fx, fy, key)
+            # la caisse peut bouger
             if self.depl_ok(cx, cy) :
-                if (fx, fy) in self.objectifs :
-                    self.cases[fx, fy] = OBJECTIF
-                else :
-                    self.cases[fx, fy] = VIDE
+                # alors elle bouge
+                self.vide(fx, fy)
+                # vérifie si objectif atteint
                 if (cx, cy) in self.objectifs :
                     self.cases[cx, cy] = CAISSE_OK
                 else :
                     self.cases[cx, cy] = CAISSE
+            # la caisse peut pas bouger, le player non plus
+            # on sort
             else :
                 return
 
+        # le player peut bouger (y.c après le dépl de la caisse)
         if self.depl_ok(fx, fy) :
-            if (px, py) in self.objectifs :
-                self.cases[px, py] = OBJECTIF
-            else :
-                self.cases[px, py] = VIDE
+            self.vide(px, py)
             self.cases[fx, fy] = PLAYER
 
+        # et on redessine
         self.drawMap()
 
 
+    def vide(self, x, y) :
+        # vide une case et remet à objectif s'il le faut
+        if (x, y) in self.objectifs :
+            self.cases[x, y] = OBJECTIF
+            return True
+        else :
+            self.cases[x, y] = VIDE
+            return False
+
     def case_move(self, x, y, depl) :
+        # coord après depl
         if depl == K_LEFT :
             pos = x-1, y
         elif depl == K_RIGHT :
@@ -70,7 +87,16 @@ class Grille:
             pos = x, y+1
         return pos
 
+    def depl_caisse_ok(self, x, y) :
+        # vérif si dépl OK
+        if x<0 or x>=self.lx :
+            return False
+        if y<0 or y>=self.ly :
+            return False
+        return self.cases[x, y] != MUR
+
     def depl_ok(self, x, y) :
+        # vérif si dépl OK
         if x<0 or x>=self.lx :
             return False
         if y<0 or y>=self.ly :
@@ -94,8 +120,8 @@ class Grille:
                 return coord
 
     def is_fini(self):
-        lis = [self.cases[x, y] for (x, y) in self.objectifs]
-        return lis.count(CAISSE_OK) == len(self.objectifs)
+        nb_obj = sum([self.cases[x, y]==CAISSE_OK for (x, y) in self.objectifs])
+        return nb_obj == len(self.objectifs)
 
 if __name__ == '__main__' :
     g = Grille()
