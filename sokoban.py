@@ -8,11 +8,9 @@ from pygame.locals import *
 from grille import Grille
 from player import Player
 
-#------------
 pygame.init()
 screen = pygame.display.set_mode((408,408))
 pygame.display.set_caption("Sokoban")
-#------------
 
 background = pygame.image.load("img/back.png")
 
