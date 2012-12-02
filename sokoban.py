@@ -33,7 +33,7 @@ while not _grille.is_fini():
         if event.type == KEYDOWN:
             _player.move(event.key)
             if event.key == K_r:
-                _grille.genMap("lv1.yaml")
+                _grille.genMap("lvl/lv1")
                 _grille.drawMap(screen)
                 _player = Player(_grille)
                 _player.drawPlayer(screen)
