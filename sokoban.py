@@ -10,15 +10,14 @@ from player import Player
 from config import *
 
 pygame.init()
-screen = pygame.display.set_mode((LARGEUR_FENETRE, HAUTEUR_FENETRE))
+screen = pygame.display.set_mode((LARGEUR, HAUTEUR))
 pygame.display.set_caption(TITRE)
 
 background = pygame.image.load("img/back.png")
 
 screen.blit(background, (0,0))
 
-_grille = Grille()
-_grille.genMap("lvl/lv1")
+_grille = Grille("lvl/lv1")
 _grille.drawMap(screen)
 
 _player = Player(_grille)

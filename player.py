@@ -20,11 +20,11 @@ class Player:
         self.grille = grille
         self.pos = self.grille.getPlayerPosition(self.grille)
 
-        self.x = self.pos[0]/34 
-        self.y = self.pos[1]/34
+        self.x = self.pos[0]/SIZE 
+        self.y = self.pos[1]/SIZE
 
     def drawPlayer(self, screen):
-        screen.blit(self.position, (self.x * 34, self.y * 34))
+        screen.blit(self.position, (self.x * SIZE, self.y * SIZE))
 
     def move(self, key):
         if key == K_LEFT:
