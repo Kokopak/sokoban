@@ -9,12 +9,12 @@ from config import *
 class Player:
     def __init__(self):
         self.pos = {
-            GAUCHE: pygame.image.load("img/mario_gauche.gif"),
-            DROITE: pygame.image.load("img/mario_droite.gif"),
-            BAS:    pygame.image.load("img/mario_bas.gif"),
-            HAUT:   pygame.image.load("img/mario_haut.gif")
+            K_LEFT: pygame.image.load("img/mario_gauche.gif"),
+            K_RIGHT: pygame.image.load("img/mario_droite.gif"),
+            K_UP:    pygame.image.load("img/mario_bas.gif"),
+            K_DOWN:   pygame.image.load("img/mario_haut.gif")
         }
-        self.position = DROITE
+        self.position = K_UP
 
     def drawPlayer(self, screen, x, y):
         screen.blit(self.pos[self.position], (x * SIZE, y * SIZE))
