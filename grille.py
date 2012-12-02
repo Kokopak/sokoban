@@ -6,14 +6,12 @@ from config import *
 
 class Grille:
     def __init__(self):
-        objectif = pygame.image.load("img/objectif.png")
-        caisse = pygame.image.load("img/caisse.jpg")
-        caisse_ok = pygame.image.load("img/caisse_ok.jpg")
-        mur = pygame.image.load("img/mur.jpg")
-        back = pygame.image.load("img/back.jpg")
-
-        self.ref_img = {1: mur, 2: caisse, 3: objectif, 5: caisse_ok}
-
+        self.ref_img = {
+            MUR: pygame.image.load("img/mur.jpg"),
+            CAISSE: pygame.image.load("img/caisse.jpg"),
+            OBJECTIF: pygame.image.load("img/objectif.png"),
+            CAISSE_OK: pygame.image.load("img/caisse_ok.jpg"),
+        }
         self.lvtest = []
         self.valide_caisse = False
 
@@ -24,9 +22,8 @@ class Grille:
         self.coord_objec = []
         for y in range(len(self.lvtest)):
             for x in range(len(self.lvtest[y])):
-                a = self.lvtest[y][x]
-                if a == 3:
-                    self.coord_objec.append((x*34,y*34))
+                if self.lvtest[y][x] == OBJECTIF :
+                    self.coord_objec.append((x,y))
 
 
     def drawMap(self, screen):
@@ -104,8 +101,8 @@ class Grille:
         return False
 
     def is_fini(self):
-        lis = [self.lvtest[y/34][x/34] for (x, y) in self.coord_objec]
-        return lis.count(5) == len(self.coord_objec)
+        lis = [self.lvtest[y][x] for (x, y) in self.coord_objec]
+        return lis.count(CAISSE_OK) == len(self.coord_objec)
 
 if __name__ == '__main__' :
     g = Grille()
