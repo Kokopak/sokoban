@@ -20,8 +20,8 @@ class Grille:
     def genMap(self, fichier):
         #f = open("lv1.yaml", "w");
         with open (fichier, 'rb') as fich:
-            self.lvtest = yaml.load(fich)
-        #    self.lvtest = [[int(l) for l in line.strip().split(" ")] for line in fich]
+        #    self.lvtest = yaml.load(fich)
+            self.lvtest = [[int(l) for l in line.strip().split(" ")] for line in fich]
         #    yaml.dump(self.lvtest, f)
 
         #self.lvtest = [ 

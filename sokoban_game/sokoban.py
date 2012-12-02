@@ -19,8 +19,8 @@ background = pygame.image.load("img/back.png")
 screen.blit(background, (0,0))
 
 _grille = Grille()
+_grille.genMap("lvl/lv1")
 _grille.drawMap(screen)
-_grille.genMap("lv1.yaml")
 
 _player = Player(_grille)
 _player.drawPlayer(screen)
@@ -35,7 +35,10 @@ while not _grille.is_fini():
         if event.type == KEYDOWN:
             _player.move(event.key)
             if event.key == K_r:
-                print "kk"
+                _grille.genMap("lv1.yaml")
+                _grille.drawMap(screen)
+                _player = Player(_grille)
+                _player.drawPlayer(screen)
     screen.blit(background, (0,0))
     _grille.drawMap(screen)
     _player.drawPlayer(screen)
