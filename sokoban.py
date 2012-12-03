@@ -13,13 +13,14 @@ pygame.init()
 screen = pygame.display.set_mode((LARGEUR*SIZE, HAUTEUR*SIZE))
 pygame.display.set_caption(TITRE)
 
-background = pygame.image.load("img/back.png")
-
-screen.blit(background, (0,0))
+#background = pygame.image.load("img/back.png")
+#screen.blit(background, (0,0))
 
 grille = Grille(screen, "lvl/lv1")
 grille.drawMap()
-pygame.display.flip()
+pygame.display.update()
+clock = pygame.time.Clock()
+fps = 30
 
 continuer = True
 while continuer and not grille.is_fini():
@@ -29,7 +30,5 @@ while continuer and not grille.is_fini():
             continuer = False
         if event.type == KEYDOWN:
             grille.player_move(event.key)
-    screen.blit(background, (0,0))
-    grille.drawMap()
-    pygame.display.flip()
-    time.sleep(.01)
+            pygame.display.update()
+    clock.tick(fps)

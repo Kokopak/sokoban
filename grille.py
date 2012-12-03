@@ -15,6 +15,7 @@ class Grille:
             CAISSE: pygame.image.load("img/caisse.jpg"),
             OBJECTIF: pygame.image.load("img/objectif.png"),
             CAISSE_OK: pygame.image.load("img/caisse_ok.jpg"),
+            VIDE: pygame.image.load("img/vide.png"),
         }
         self.cases = {}
         self.objectifs = []
@@ -53,6 +54,7 @@ class Grille:
                     self.cases[cx, cy] = CAISSE_OK
                 else :
                     self.cases[cx, cy] = CAISSE
+                self.drawCase(self.cases[cx, cy], cx, cy)
             # la caisse peut pas bouger, le player non plus
             # on sort
             else :
@@ -62,6 +64,7 @@ class Grille:
         if self.depl_ok(fx, fy) :
             self.vide(px, py)
             self.cases[fx, fy] = PLAYER
+            self.drawCase(self.cases[fx, fy], fx, fy)
 
         # et on redessine
         self.drawMap()
@@ -71,10 +74,12 @@ class Grille:
         # vide une case et remet à objectif s'il le faut
         if (x, y) in self.objectifs :
             self.cases[x, y] = OBJECTIF
-            return True
+            ret = True
         else :
             self.cases[x, y] = VIDE
-            return False
+            ret = False
+        self.drawCase(self.cases[x, y], x, y)
+        return ret
 
     def case_move(self, x, y, depl) :
         # coord après depl
@@ -100,16 +105,18 @@ class Grille:
         # vérif si dépl OK
         return self.coord_in_grille(x, y) and self.cases[x, y] in (VIDE, OBJECTIF)
 
-    def drawMap(self):
-        for x in range(self.lx) :
-            for y in range(self.ly) :
+    def drawMap(self) :
+        for x in range(self.max_x) :
+            for y in range(self.max_y) :
                 c = self.cases[x, y]
-                if c == PLAYER :
-                    self.player.drawPlayer(self.screen, x, y)
-                elif c == VIDE :
-                    pass
-                else:
-                    self.screen.blit(self.ref_img[c], (x*SIZE, y*SIZE))
+                self.drawCase(c, x, y)
+
+    def drawCase(self, c, x, y) :
+        self.screen.blit(self.ref_img[VIDE], (x*SIZE, y*SIZE))
+        if c == PLAYER :
+            self.player.drawPlayer(self.screen, x, y)
+        else :
+            self.screen.blit(self.ref_img[c], (x*SIZE, y*SIZE))
     
     def getPlayerPosition(self):
         for coord, case in self.cases.iteritems() :
