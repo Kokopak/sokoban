@@ -24,9 +24,10 @@ class Grille:
                     self.cases[x, y] = int(l)
                     if int(l) == OBJECTIF :
                         self.objectifs.append((x,y))
-        self.lx = x+1
-        self.ly = y+1
+        self.max_x = x+1
+        self.max_y = y+1
         self.player = player.Player()
+        self.drawMap()
 
     def player_move(self, key):
         # si mauvaise touche, on dégage
@@ -41,7 +42,7 @@ class Grille:
         fx, fy = self.case_move(px, py, key)
 
         # caisse à l'arrivée ?
-        if self.depl_caisse_ok(fx, fy) and self.cases[fx, fy] in (CAISSE, CAISSE_OK) :
+        if self.coord_in_grille(fx, fy) and self.cases[fx, fy] in (CAISSE, CAISSE_OK) :
             cx, cy = self.case_move(fx, fy, key)
             # la caisse peut bouger
             if self.depl_ok(cx, cy) :
@@ -87,21 +88,17 @@ class Grille:
             pos = x, y+1
         return pos
 
-    def depl_caisse_ok(self, x, y) :
+    def coord_in_grille(self, x, y) :
         # vérif si dépl OK
-        if x<0 or x>=self.lx :
+        if x<0 or x>=self.max_x :
             return False
-        if y<0 or y>=self.ly :
+        if y<0 or y>=self.max_y :
             return False
-        return self.cases[x, y] != MUR
+        return True
 
     def depl_ok(self, x, y) :
         # vérif si dépl OK
-        if x<0 or x>=self.lx :
-            return False
-        if y<0 or y>=self.ly :
-            return False
-        return self.cases[x, y] not in (MUR, CAISSE, CAISSE_OK)
+        return self.coord_in_grille(x, y) and self.cases[x, y] in (VIDE, OBJECTIF)
 
     def drawMap(self):
         for x in range(self.lx) :
