@@ -66,10 +66,6 @@ class Grille:
             self.cases[fx, fy] = PLAYER
             self.drawCase(self.cases[fx, fy], fx, fy)
 
-        # et on redessine
-        self.drawMap()
-
-
     def vide(self, x, y) :
         # vide une case et remet à objectif s'il le faut
         if (x, y) in self.objectifs :
@@ -94,7 +90,7 @@ class Grille:
         return pos
 
     def coord_in_grille(self, x, y) :
-        # vérif si dépl OK
+        # vérif si coord OK
         if x<0 or x>=self.max_x :
             return False
         if y<0 or y>=self.max_y :
@@ -106,13 +102,17 @@ class Grille:
         return self.coord_in_grille(x, y) and self.cases[x, y] in (VIDE, OBJECTIF)
 
     def drawMap(self) :
+        # dessine la map
         for x in range(self.max_x) :
             for y in range(self.max_y) :
                 c = self.cases[x, y]
                 self.drawCase(c, x, y)
 
     def drawCase(self, c, x, y) :
+        # dessine une case
+        # met l'image de fond
         self.screen.blit(self.ref_img[VIDE], (x*SIZE, y*SIZE))
+        # et dessine dessus le player ou la map
         if c == PLAYER :
             self.player.drawPlayer(self.screen, x, y)
         else :

@@ -13,9 +13,6 @@ pygame.init()
 screen = pygame.display.set_mode((LARGEUR*SIZE, HAUTEUR*SIZE))
 pygame.display.set_caption(TITRE)
 
-#background = pygame.image.load("img/back.png")
-#screen.blit(background, (0,0))
-
 grille = Grille(screen, "lvl/lv1")
 grille.drawMap()
 pygame.display.update()
